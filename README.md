@@ -22,7 +22,7 @@ tf.keras.layers.Conv2D(filters=8, kernel_size=3),
 optimizer=keras.optimizers.sgd(lr=0.000001, momentum=0.5)
 Тестовая выборка 
 ![Image alt](https://github.com/MaximGil/SMOMI/blob/Lab2/CNN-XRay/optimizer%3Dkeras.optimizers.sgd(lr%3D0.000001%2C%20momentum%3D0.5)%2C/epoch_categorical_accuracy.png)
-![Image alt](hhttps://github.com/MaximGil/SMOMI/blob/Lab2/CNN-XRay/optimizer%3Dkeras.optimizers.sgd(lr%3D0.000001%2C%20momentum%3D0.5)%2C/epoch_loss.png)
+![Image alt](https://github.com/MaximGil/SMOMI/blob/Lab2/CNN-XRay/optimizer%3Dkeras.optimizers.sgd(lr%3D0.000001%2C%20momentum%3D0.5)%2C/epoch_loss.png)
 Обучающая выборка
 ![Image alt](https://github.com/MaximGil/SMOMI/blob/Lab2/CNN-XRay/optimizer%3Dkeras.optimizers.sgd(lr%3D0.000001%2C%20momentum%3D0.5)%2C/epoch_val_categorical_accuracy.png)
 ![Image alt](https://github.com/MaximGil/SMOMI/blob/Lab2/CNN-XRay/optimizer%3Dkeras.optimizers.sgd(lr%3D0.000001%2C%20momentum%3D0.5)%2C/epoch_val_loss.png)
@@ -46,7 +46,7 @@ optimizer=keras.optimizers.sgd(lr=0.0000001, momentum=0.5)
         tf.keras.layers.MaxPool2D()
         
         Тестовая выборка 
-![Image alt](hhttps://github.com/MaximGil/SMOMI/blob/Lab2/CNN-XRay/last%20changes/epoch_categorical_accuracy.png)
+![Image alt](https://github.com/MaximGil/SMOMI/blob/Lab2/CNN-XRay/last%20changes/epoch_categorical_accuracy.png)
 ![Image alt](https://github.com/MaximGil/SMOMI/blob/Lab2/CNN-XRay/last%20changes/epoch_loss.png)
 Обучающая выборка
 ![Image alt](https://github.com/MaximGil/SMOMI/blob/Lab2/CNN-XRay/last%20changes/epoch_val_categorical_accuracy.png)
