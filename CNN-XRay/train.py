@@ -84,21 +84,37 @@ class Validation(tf.keras.callbacks.Callback):
         callback.on_epoch_end(epoch, {
             'val_' + self.model.metrics_names[i]: v for i, v in enumerate(result)
         })
-
+ 
 
 def build_model():
     return tf.keras.models.Sequential([
         tf.keras.layers.Input(shape=(224,224,3)),
-        tf.keras.layers.Conv2D(filters=64, kernel_size=3),
-        tf.keras.layers.MaxPool2D(),
-        tf.keras.layers.Conv2D(filters=64, kernel_size=3),
-        tf.keras.layers.MaxPool2D(),
-        tf.keras.layers.Conv2D(filters=8, kernel_size=3),
-        tf.keras.layers.MaxPool2D(),
+        tf.keras.layers.Conv2D(filters=64,kernel_size=(3,3), padding="same", activation="relu"),
+        tf.keras.layers.Conv2D(filters=64,kernel_size=(3,3), padding="same", activation="relu"),
+        tf.keras.layers.MaxPool2D(pool_size=(2,2),strides=(2,2)),
+        tf.keras.layers.Conv2D(filters=128, kernel_size=(3,3), padding="same", activation="relu"),
+        tf.keras.layers.Conv2D(filters=128, kernel_size=(3,3), padding="same", activation="relu"),
+        tf.keras.layers.Conv2D(filters=128, kernel_size=(3,3), padding="same", activation="relu"),
+        tf.keras.layers.MaxPool2D(pool_size=(2,2),strides=(2,2)),
+        tf.keras.layers.Conv2D(filters=256, kernel_size=(3,3), padding="same", activation="relu"),
+        tf.keras.layers.Conv2D(filters=256, kernel_size=(3,3), padding="same", activation="relu"),
+        tf.keras.layers.Conv2D(filters=256, kernel_size=(3,3), padding="same", activation="relu"),
+        tf.keras.layers.MaxPool2D(pool_size=(2,2),strides=(2,2)),
+        tf.keras.layers.Conv2D(filters=512, kernel_size=(3,3), padding="same", activation="relu"),
+        tf.keras.layers.Conv2D(filters=512, kernel_size=(3,3), padding="same", activation="relu"),
+        tf.keras.layers.Conv2D(filters=512, kernel_size=(3,3), padding="same", activation="relu"),
+        tf.keras.layers.MaxPool2D(pool_size=(2,2),strides=(2,2)),
+        tf.keras.layers.Conv2D(filters=512, kernel_size=(3,3), padding="same", activation="relu"),
+        tf.keras.layers.Conv2D(filters=512, kernel_size=(3,3), padding="same", activation="relu"),
+        tf.keras.layers.Conv2D(filters=512, kernel_size=(3,3), padding="same", activation="relu"),
+        tf.keras.layers.MaxPool2D(pool_size=(2,2),strides=(2,2)),
         tf.keras.layers.Flatten(),
-        tf.keras.layers.Dense(NUM_CLASSES, activation=tf.keras.activations.softmax)
+        tf.keras.layers.Dense(units=4096,activation="relu"),
+        tf.keras.layers.Dense(units=4096,activation="relu"),
+       # tf.keras.layers.Dense(units=4096, activation="softmax")    
+       tf.keras.layers.Dense(NUM_CLASSES, activation=tf.keras.activations.softmax)
     ])
-
+     
 
 def main():
     args = argparse.ArgumentParser()
