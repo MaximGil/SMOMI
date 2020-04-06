@@ -17,7 +17,7 @@ from tensorflow.python.keras.callbacks import LearningRateScheduler
 
 LOG_DIR = 'logs'
 SHUFFLE_BUFFER = 10
-BATCH_SIZE = 1
+BATCH_SIZE = 32
 NUM_CLASSES = 2
 PARALLEL_CALLS=4
 RESIZE_TO = 224
@@ -129,7 +129,7 @@ def main():
     model = build_model()
 
     model.compile(
-        optimizer=keras.optimizers.sgd(lr=0.000000001, momentum=0.9),
+        optimizer=keras.optimizers.sgd(lr=0.00001, momentum=0.9),
         loss=tf.keras.losses.categorical_crossentropy,
         metrics=[tf.keras.metrics.categorical_accuracy],
         target_tensors=[train_labels]
