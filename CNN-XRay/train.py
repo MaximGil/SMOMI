@@ -17,7 +17,7 @@ from tensorflow.python.keras.callbacks import LearningRateScheduler
 
 LOG_DIR = 'logs'
 SHUFFLE_BUFFER = 10
-BATCH_SIZE = 32
+BATCH_SIZE = 16
 NUM_CLASSES = 2
 PARALLEL_CALLS=4
 RESIZE_TO = 224
