@@ -117,7 +117,7 @@ def main():
     log_dir='{}/xray-{}'.format(LOG_DIR, time.time())
     model.fit(
         (train_images, train_labels),
-        epochs=200, 
+        epochs=100, 
         steps_per_epoch=int(np.ceil(TRAINSET_SIZE / float(BATCH_SIZE))),
         callbacks=[
             tf.keras.callbacks.TensorBoard(log_dir),
