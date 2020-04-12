@@ -13,6 +13,8 @@ import tensorflow as tf
 import time
 from tensorflow.python import keras as keras
 from tensorflow.python.keras.callbacks import LearningRateScheduler
+#from keras.models import load_model
+
 
 LOG_DIR = 'logs'
 SHUFFLE_BUFFER = 10
@@ -56,6 +58,29 @@ def create_dataset(filenames, batch_size):
         .batch(batch_size)\
         .prefetch(2 * batch_size)
 
+def create_aug_dataset(filenames, batch_size):
+    return tf.data.TFRecordDataset(filenames)\
+        .map(parse_proto_example)\
+        .map(resize)\
+        .map(normalize)\
+        .map(augment)\
+        .shuffle(buffer_size=5 * batch_size)\
+        .repeat()\
+        .batch(batch_size)\
+        .prefetch(2 * batch_size)
+
+def augment(image,label):
+    image = tf.image.convert_image_dtype(image, tf.float32)
+    image = tf.image.random_flip_left_right(image)
+    return image,label
+    
+def augment_bright(image,label):
+    image = tf.image.adjust_brightness(image, 0.4)
+    return image, label
+    
+def augment_cropped(image, label):
+        image =  tf.image.central_crop(image, central_fraction=0.5)
+        return image, label
 
 class Validation(tf.keras.callbacks.Callback):
     def __init__(self, log_dir, validation_files, batch_size):
@@ -65,10 +90,10 @@ class Validation(tf.keras.callbacks.Callback):
 
     def on_epoch_end(self, epoch, logs=None):
         print('The average loss for epoch {} is {:7.2f} '.format(
-            epoch, logs['loss']
+            epoch, logs['lobelss']
         ))
 
-        validation_dataset = create_dataset(self.validation_files, self.batch_size)
+        validation_dataset = create_aug_dataset(self.validation_files, self.batch_size)
         validation_images, validation_labels = validation_dataset.make_one_shot_iterator().get_next()
         validation_labels = tf.one_hot(validation_labels, NUM_CLASSES)
 
@@ -83,17 +108,13 @@ class Validation(tf.keras.callbacks.Callback):
         callback.on_epoch_end(epoch, {
             'val_' + self.model.metrics_names[i]: v for i, v in enumerate(result)
         })
- 
+
 
 def build_model():
-    base_model = tf.keras.applications.VGG16(include_top=False, weights='imagenet', input_shape=(224,224,3), classes=2)
-    base_model.trainable = False
-    return tf.keras.models.Sequential([
-       base_model,
-    	tf.keras.layers.Flatten(),
-        tf.keras.layers.Dense(NUM_CLASSES, activation=tf.keras.activations.softmax)
-    ])
-     
+    model = keras.models.load_model('model.h5')
+    model.trainable = True
+    return model
+
 
 def main():
     args = argparse.ArgumentParser()
@@ -101,14 +122,14 @@ def main():
     args.add_argument('--test', type=str, help='Glob pattern to collect test tfrecord files')
     args = args.parse_args()
 
-    train_dataset = create_dataset(glob.glob(args.train), BATCH_SIZE)
+    train_dataset = create_aug_dataset(glob.glob(args.train), BATCH_SIZE)
     train_images, train_labels = train_dataset.make_one_shot_iterator().get_next()
     train_labels = tf.one_hot(train_labels, NUM_CLASSES)
 
     model = build_model()
 
     model.compile(
-        optimizer=keras.optimizers.sgd(lr=0.000000000008, momentum=0.9),
+        optimizer=keras.optimizers.sgd(lr=1e-11, momentum=0.9),
         loss=tf.keras.losses.categorical_crossentropy,
         metrics=[tf.keras.metrics.categorical_accuracy],
         target_tensors=[train_labels]
@@ -117,17 +138,14 @@ def main():
     log_dir='{}/xray-{}'.format(LOG_DIR, time.time())
     model.fit(
         (train_images, train_labels),
-        epochs=200, 
+        epochs=100,
         steps_per_epoch=int(np.ceil(TRAINSET_SIZE / float(BATCH_SIZE))),
         callbacks=[
             tf.keras.callbacks.TensorBoard(log_dir),
             Validation(log_dir, validation_files=glob.glob(args.test), batch_size=BATCH_SIZE)
         ]
     )
-    model.save('model.h5')
 
 
 if __name__ == '__main__':
     main()
-
-
