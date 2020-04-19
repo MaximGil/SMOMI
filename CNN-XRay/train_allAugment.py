@@ -77,8 +77,8 @@ def augmented_train(image, label):
     image = tf.image.convert_image_dtype(image, tf.float32)
     image = tf.image.random_crop(image, size=[112, 112, 3], seed=None, name=None)
     image = tf.image.random_flip_left_right(image)
-    image = tf.image.random_brightness(image, 0.5, seed=None)
-    image = tf.image.random_contrast(image, lower=0.2, upper=1.2, seed=None)
+    image = tf.image.random_brightness(image, 0.6, seed=None)
+    image = tf.image.random_contrast(image, 0.4, 1.4, seed=None)
     degree = 45
     dgr = random.uniform(-degree, degree)
     image = tf.contrib.image.rotate(image, dgr * math.pi / 180, interpolation='BILINEAR')
