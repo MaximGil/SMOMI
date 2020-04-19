@@ -1,11 +1,20 @@
 Лабораторная работа №4
+
 BUTCH_SIZE = 8, lr = 10^(-11)
+
 a) горизонтальное отражение
 
+     image = tf.image.random_flip_left_right(image)
 ![Image alt](https://github.com/MaximGil/SMOMI/blob/Lab4/CNN-XRay/lab4/flip.png)
 
 b) Аугментация с помощью поворота на случайный угол [-a;a]. Файл train_rotate.py
-   30 градусов 
+ 
+    image = tf.image.convert_image_dtype(image, tf.float32)
+    degree = 45
+    dgr = random.uniform(-degree, degree)
+    image = tf.contrib.image.rotate(image, dgr * math.pi / 180, interpolation='BILINEAR')
+ 
+ 30 градусов 
 ![Image alt](https://github.com/MaximGil/SMOMI/blob/Lab4/CNN-XRay/lab4/rotate_30.png)
  
    45 градусов 
