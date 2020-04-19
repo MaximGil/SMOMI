@@ -65,16 +65,19 @@ def create_augmented_dataset(filenames, batch_size):
         .map(parse_proto_example)\
         .map(resize)\
         .map(normalize)\
-        .map(augmented_train_flip)\
+        .map(augment_bright)\
         .shuffle(buffer_size=5 * batch_size)\
         .repeat()\
         .batch(batch_size)\
         .prefetch(2 * batch_size)
 
-def augmented_train_flip(image, label):
+def augment_bright(image,label):
     image = tf.image.convert_image_dtype(image, tf.float32)
-    image = tf.image.random_flip_left_right(image)
+    image = tf.image.random_brightness(image, 0.6, seed=None)
+    image = tf.image.random_contrast(image, 0.4, 1.4, seed=None)
     return image,label
+
+
 
 class Validation(tf.keras.callbacks.Callback):
     def __init__(self, log_dir, validation_files, batch_size):
@@ -144,4 +147,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-

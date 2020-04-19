@@ -6,6 +6,8 @@ __author__ = 'Alexander Soroka, soroka.a.m@gmail.com'
 __copyright__ = """Copyright 2020 Alexander Soroka"""
 
 
+import math
+import random
 import argparse
 import glob
 import numpy as np
@@ -63,17 +65,23 @@ def create_augmented_dataset(filenames, batch_size):
     """
     return tf.data.TFRecordDataset(filenames)\
         .map(parse_proto_example)\
-        .map(resize)\
         .map(normalize)\
-        .map(augmented_train_flip)\
+        .map(augmented_train)\
+        .map(resize)\
         .shuffle(buffer_size=5 * batch_size)\
         .repeat()\
         .batch(batch_size)\
         .prefetch(2 * batch_size)
 
-def augmented_train_flip(image, label):
+def augmented_train(image, label):
     image = tf.image.convert_image_dtype(image, tf.float32)
+    image = tf.image.random_crop(image, size=[112, 112, 3], seed=None, name=None)
     image = tf.image.random_flip_left_right(image)
+    image = tf.image.random_brightness(image, 0.5, seed=None)
+    image = tf.image.random_contrast(image, lower=0.2, upper=1.2, seed=None)
+    degree = 45
+    dgr = random.uniform(-degree, degree)
+    image = tf.contrib.image.rotate(image, dgr * math.pi / 180, interpolation='BILINEAR')
     return image,label
 
 class Validation(tf.keras.callbacks.Callback):
@@ -105,9 +113,9 @@ class Validation(tf.keras.callbacks.Callback):
  
 
 def build_model():
-        model = keras.models.load_model('model.h5')
-        model.trainable = True
-        return model
+    model = keras.models.load_model('model.h5')
+    model.trainable = True
+    return model
      
 
 def main():
@@ -141,7 +149,5 @@ def main():
     )
 
 
-
 if __name__ == '__main__':
     main()
-
