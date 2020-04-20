@@ -4,7 +4,7 @@ lr= 10*(-11), butch_size = 8.
 
 1.Step Decay . File decay_step.py
 
-![Image alt](https://github.com/MaximGil/SMOMI/blob/Lab5/CNN-XRay/decay_step1.png)
+![Image alt](https://github.com/MaximGil/SMOMI/blob/Lab5/CNN-XRay/lab%205/decay_step1.png)
 
  Exponental Decay. File exp_decay.py
 
