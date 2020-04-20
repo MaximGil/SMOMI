@@ -1,29 +1,19 @@
-Лабораторная работа №3
-Выполнил пока что только часть. Здесь графики обученной модели сети VGG16.
+Лабораторная работа №5
 
-1 конфигурация. lr= 0.00001, butch_size = 32.
+lr= 10*(-11), butch_size = 8.
 
-Обучающая выборка
-![Image alt](https://github.com/MaximGil/SMOMI/blob/Lab3/CNN-XRay/lr%20%3D%200.00001%2C%20butch_size%2032./epoch_categorical_accuracy.png)
-![Image alt](https://github.com/MaximGil/SMOMI/blob/Lab3/CNN-XRay/lr%20%3D%200.00001%2C%20butch_size%2032./epoch_loss.png)
-Тестовая выборка
-![Image alt](https://github.com/MaximGil/SMOMI/blob/Lab3/CNN-XRay/lr%20%3D%200.00001%2C%20butch_size%2032./epoch_val_categorical_accuracy.png)
-![Image alt](https://github.com/MaximGil/SMOMI/blob/Lab3/CNN-XRay/lr%20%3D%200.00001%2C%20butch_size%2032./epoch_val_loss%20(1).png)
+1.Step Decay . File decay_step.py
 
-2 конфигурация. lr= 0.00001, butch_size = 16.
+![Image alt](https://github.com/MaximGil/SMOMI/blob/Lab5/CNN-XRay/decay_step1.py)
 
-Обучающая выборка
-![Image alt](https://github.com/MaximGil/SMOMI/blob/Lab3/CNN-XRay/lr%20%3D%200.00001%2C%20butch_size%2016./epoch_categorical_accuracy.png)
-![Image alt](https://github.com/MaximGil/SMOMI/blob/Lab3/CNN-XRay/lr%20%3D%200.00001%2C%20butch_size%2016./epoch_loss.png)
-Тестовая выборка
-![Image alt](https://github.com/MaximGil/SMOMI/blob/Lab3/CNN-XRay/lr%20%3D%200.00001%2C%20butch_size%2016./epoch_val_categorical_accuracy.png)
-![Image alt](https://github.com/MaximGil/SMOMI/blob/Lab3/CNN-XRay/lr%20%3D%200.00001%2C%20butch_size%2016./epoch_val_loss.png)
+ Exponental Decay. File exp_decay.py
 
-3 конфигурация. lr = 0.000001, butch_size = 16.
+![Image alt](https://github.com/MaximGil/SMOMI/blob/Lab5/CNN-XRay/lab%205/exp_decay1.png)
 
-Обучающая выборка
-![Image alt](https://github.com/MaximGil/SMOMI/blob/Lab3/CNN-XRay/lr%20%3D%200.000001%2C%20butch_size%2016./epoch_categorical_accuracy.png)
-![Image alt](https://github.com/MaximGil/SMOMI/blob/Lab3/CNN-XRay/lr%20%3D%200.000001%2C%20butch_size%2016./epoch_loss.png)
-Тестовая выборка
-![Image alt](https://github.com/MaximGil/SMOMI/blob/Lab3/CNN-XRay/lr%20%3D%200.000001%2C%20butch_size%2016./epoch_val_categorical_accuracy.png)
-![Image alt](https://github.com/MaximGil/SMOMI/blob/Lab3/CNN-XRay/lr%20%3D%200.000001%2C%20butch_size%2016./epoch_val_loss.png)
+2. Step Decay with warmup. File decay_warmup.py
+
+![Image alt](https://github.com/MaximGil/SMOMI/blob/Lab5/CNN-XRay/lab%205/decay_warmup1.png)
+  
+  Exponental Decay with warmup. File exp_warmup.py
+
+![Image alt](https://github.com/MaximGil/SMOMI/blob/Lab5/CNN-XRay/lab%205/exp_warmup1.png)
