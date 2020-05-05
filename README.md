@@ -2,53 +2,29 @@
 
 BUTCH_SIZE = 8, lr = 10^(-11)
 
-a) горизонтальное отражение
+a) горизонтальное отражение. File train_flip1.py
 
      image = tf.image.random_flip_left_right(image)
-![Image alt](https://github.com/MaximGil/SMOMI/blob/Lab4/CNN-XRay/lab4/flip.png)
+![Image alt](https://github.com/MaximGil/SMOMI/blob/Lab4_try2/CNN-XRay/lab4_remake/train_flip1.png)
 
-b) Аугментация с помощью поворота на случайный угол [-a;a]. Файл train_rotate.py
- 
-    image = tf.image.convert_image_dtype(image, tf.float32)
-    degree = 45
-    dgr = random.uniform(-degree, degree)
-    image = tf.contrib.image.rotate(image, dgr * math.pi / 180, interpolation='BILINEAR')
- 
- 30 градусов 
-![Image alt](https://github.com/MaximGil/SMOMI/blob/Lab4/CNN-XRay/lab4/rotate_30.png)
- 
-   45 градусов 
-![Image alt](https://github.com/MaximGil/SMOMI/blob/Lab4/CNN-XRay/lab4/rotate_45.png)
-
-c) аугментация данных с помощью случайного изменения яркости и контраста. Файл train_brigth.py        
+c) аугментация данных с помощью случайного изменения яркости и контраста. Файл train_brigth1.py        
 
      tf.image.random_brightness(image, 0.4, seed=None)
-     tf.image.random_contrast(image, 0.2, 1.2 seed=None)
-![Image alt](https://github.com/MaximGil/SMOMI/blob/Lab4/CNN-XRay/lab4/brigth_1.2.png)
+     tf.image.random_contrast(image, 0.4, 1.4 seed=None)
+![Image alt](hhttps://github.com/MaximGil/SMOMI/blob/Lab4_try2/CNN-XRay/lab4_remake/train_bright1_0.4.png)
 
      tf.image.random_brightness(image, 0.5, seed=None) 
-     tf.image.random_contrast(image, 0.3, 1.3 seed=None)
-![Image alt](https://github.com/MaximGil/SMOMI/blob/Lab4/CNN-XRay/lab4/brigth_1.3.png)
+     tf.image.random_contrast(image, 0.4, 1.4 seed=None)
+![Image alt](https://github.com/MaximGil/SMOMI/blob/Lab4_try2/CNN-XRay/lab4_remake/train_brigth1_05.png)
 
      tf.image.random_brightness(image, 0.6, seed=None)
      tf.image.random_contrast(image, 0.4, 1.4 seed=None)
-![Image alt](https://github.com/MaximGil/SMOMI/blob/Lab4/CNN-XRay/lab4/brigth_1.4.png)
+![Image alt](https://github.com/MaximGil/SMOMI/blob/Lab4_try2/CNN-XRay/lab4_remake/train_brigth1_06.png)
 d) Аугментация с использованием случайного участка изображения
 
-    tf.image.random_crop(image, size=[170, 130, 3], seed=None, name=None)
-![Image alt](https://github.com/MaximGil/SMOMI/blob/Lab4/CNN-XRay/lab4/crop_170.png)
+    tf.image.random_crop(image, size=[140, 140, 3], seed=None, name=None)
+![Image alt](https://github.com/MaximGil/SMOMI/blob/Lab4_try2/CNN-XRay/lab4_remake/train_crop1_140.png)
        
-    tf.image.random_crop(image, size=[112, 112, 3], seed=None, name=None)
-![Image alt](https://github.com/MaximGil/SMOMI/blob/Lab4/CNN-XRay/lab4/crop_112.png)
+    tf.image.random_crop(image, size=[170, 170, 3], seed=None, name=None)
+![Image alt](https://github.com/MaximGil/SMOMI/blob/Lab4_try2/CNN-XRay/lab4_remake/train_crop1_170.png)
 
-e) Методы a, b, c, d с оптимальными параметрами
-
-    image = tf.image.random_crop(image, size=[112, 112, 3], seed=None, name=None)
-    image = tf.image.random_flip_left_right(image)
-    image = tf.image.random_brightness(image, 0.6, seed=None)
-    image = tf.image.random_contrast(image, 0.4, 1.4, seed=None)
-    degree = 45
-    dgr = random.uniform(-degree, degree)
-    image = tf.contrib.image.rotate(image, dgr * math.pi / 180, interpolation='BILINEAR')
-    
-![Image alt](https://github.com/MaximGil/SMOMI/blob/Lab4/CNN-XRay/lab4/all_augment.png)
