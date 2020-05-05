@@ -11,7 +11,7 @@ c) аугментация данных с помощью случайного и
 
      tf.image.random_brightness(image, 0.4, seed=None)
      tf.image.random_contrast(image, 0.4, 1.4 seed=None)
-![Image alt](hhttps://github.com/MaximGil/SMOMI/blob/Lab4_try2/CNN-XRay/lab4_remake/train_bright1_0.4.png)
+![Image alt](https://github.com/MaximGil/SMOMI/blob/Lab4_try2/CNN-XRay/lab4_remake/train_bright1_0.4.png)
 
      tf.image.random_brightness(image, 0.5, seed=None) 
      tf.image.random_contrast(image, 0.4, 1.4 seed=None)
